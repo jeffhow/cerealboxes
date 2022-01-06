@@ -1,0 +1,109 @@
+body{
+    margin:0;
+}
+
+h1,h2,h3{
+    font-family: 'Luckiest Guy', cursive;
+    color:white;
+    font-weight:normal;
+    text-shadow: 2px 2px #00000050;
+    margin:0;
+}
+
+.lucky{
+    font-family: 'Luckiest Guy', cursive;
+    color:#ff5722;
+}
+
+header{
+    text-align: center;
+    margin-bottom:20px;
+    background-color:#ff5722;
+    padding:20px 0;
+}
+header a{
+    color:#222;
+}
+
+main{
+    max-width:600px;
+    margin: auto;
+}
+h1{
+    font-size:42px;
+}
+
+.lucky{
+    font-size:32px;
+    color:#c72525;
+}
+
+
+.cereal-box{
+    background-color: #ff9800;
+    border:4px outset #ff5722;
+    width: 300px;
+    height:400px;
+    padding:20px;
+    margin:0 20px 20px 0;
+    float:left;
+    text-align: center;
+}
+
+body, button, input{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+}
+
+
+.fas{
+    font-size:32px;
+    border:2px solid #c72525;
+    width:50px;
+    height:32px;
+    display:inline-block;
+    margin:10px;
+    padding:9px 0;
+    border-radius:15px;
+    color: #c72525;
+    background-color:#ffbb50;
+}
+
+#animals{
+    margin:10px 0;
+    height:148px;
+}
+
+input, button{
+    min-width:50px;
+    border-radius: 5px;
+}
+
+#num_of_animals{
+    text-align: center;
+}
+
+.control-panel span{
+    font-weight:bold;
+}
+
+section{
+    display: block;
+    clear:both;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+footer{
+    text-align: center;
+    padding:20px 0;
+    background-color:grey;
+}
+footer p, footer a{
+    font-size:16px;
+    color: #333;
+}
+
+.hidden{
+    display:none;
+}

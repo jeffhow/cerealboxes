@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>Cereal Box Problem Simulation</title>
+    <script src="https://kit.fontawesome.com/95697a6801.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Open+Sans&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <header>
+      <h1>Cereal Box Problem</h1> 
+      <small>A Simulation based off <a href="https://mste.illinois.edu/reese/cereal/cereal.php">this by Quinn Baetz and George Reese</a></small>
+    </header>
+
+    <main>
+      <div class="cereal-box">
+        <div class="lucky">Web Flakes<br>Prizes</div>
+        <div id="animals"><i class="fas fa-cat"></i></div>
+        <img 
+          src="cereal.svg" 
+          alt="line art of a bowl of cereal" 
+          width="150"
+          title="Cereal by Jacob Halton from the Noun Project">
+      </div>
+      <div class="control-panel">
+        <form>
+        <input type="number" id="num_of_animals" min="1" max="8">
+        <button id="run">Run Simulation</button>
+        </form>
+        <hr>
+        <div>
+        <p>Current Count: <span id="current_count"></span></p>
+        <p>Trials Performed: <span id="trials_performed"></span></p>
+        <p>Average: <span id="average"></span></p>
+        <p>Max: <span id="max"></span></p>
+        <p>Min: <span id="min"></span></p>
+        <p>Range: <span id="range"></span></p>
+        </div>
+      </div>
+      <hr>
+      <section>
+      <h3 class="lucky hidden" id="result_label">Results</h3>
+      <div id="results"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>By <a href="jeff.how">Jeff.how</a></p>
+      <small><a href="https://thenounproject.com/search/?q=cereal&i=4109">Cereal by Jacob Halton from the Noun Project</a></small>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script>
+
+    var num_of_animals = 0; 
+    var avg_set = new Array();
+    var max = 0;
+    var min = 0;
+
+    var animal_classes = [
+      'fas fa-cat',
+      'fas fa-hippo',
+      'fas fa-dog',
+      'fas fa-kiwi-bird', 
+      'fas fa-horse',
+      'fas fa-fish',
+      'fas fa-crow',
+      'fas fa-dragon',
+    ];
+
+    $('#num_of_animals').val(1);
+
+    $('#num_of_animals').change(function(){
+      var a = $(this).val();
+      $('#animals').html('');
+      for(i=0; i<a;i++){
+        var node = document.createElement('i');
+        $(node).addClass(animal_classes[i]);
+        // node.classList.add( animal_classes[i] );
+        $('#animals').append(node);
+      }
+
+    });
+
+    $('#run').click(function(){
+      // Don't submit form
+      event.preventDefault();
+
+      if( parseInt( $('#num_of_animals').val()  ) != num_of_animals ){
+        // New Trial
+        num_of_animals = parseInt( $('#num_of_animals').val() );
+        avg_set = new Array();
+        trials_performed = 0;
+        max = 0;
+        min = 0;
+      }else{
+        // Continue Trial
+        num_of_animals = parseInt( $('#num_of_animals').val() );
+        trials_performed = parseInt( $('#trials_performed').html() ); 
+      }
+
+      simulate(num_of_animals, trials_performed);
+
+
+    });
+
+    function simulate( n, t ){
+      var animals = new Array();
+      var animals_got = new Array();
+      
+
+      while(animals.length<n){
+        var result = Math.floor(Math.random() * n+1);
+        if( !animals.includes(result) ){
+          animals.push(result);
+        }
+        animals_got.push(result);
+
+      }
+
+      // console.log(animals);
+      // console.log(animals_got);
+
+      t+=1
+      avg_set.push(animals_got.length);
+
+      if(animals_got.length > max){
+        max = animals_got.length;
+      }
+
+      if(min == 0 || animals_got.length<min){
+        min = animals_got.length;
+      }
+
+      $('#current_count').html(n);
+      $('#trials_performed').html(t);
+      $('#average').html( get_avg() );
+      $('#max').html(max);
+      $('#min').html(min);
+      $('#range').html(max - min);
+
+      $('#result_label').removeClass('hidden');
+      $('#results').html();
+      for(i=0; i<animals_got.length;i++){
+        var node = document.createElement('i');
+        $(node).addClass(animal_classes[animals_got[i]]);
+        // node.classList.add( animal_classes[i] );
+        $('#results').append(node);
+      }
+    }
+
+    function get_avg(){
+      var sum = 0;
+      avg_set.forEach(function(item){
+        sum += item;
+      });
+
+      return ( sum / avg_set.length ).toFixed(2);
+    }
+
+    </script>
+  </body>
+</html>
